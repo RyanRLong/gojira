@@ -50,6 +50,7 @@ class Gateway:
         ''', (name,))
         return Command(*self.cursor.fetchone())
 
+
 class Command:
 
     def __init__(self, name, type_id, type_name, instruction, times_used, created, updated):
@@ -63,7 +64,6 @@ class Command:
 
     def __str__(self):
         return "{} {}->{}".format(self.name, self.type_name, self.instruction)
-
 
 
 if __name__ == "__main__":

@@ -27,6 +27,3 @@ class JiraUtils:
     def run_command(self, command):
         command = self.gateway.getCommand(command)
         return getattr(self.jira, command.type_name)(command.instruction)
-
-
-
