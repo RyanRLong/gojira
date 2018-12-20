@@ -1,4 +1,5 @@
 from jira import JIRA
+from src.lib.gateway import Command, Gateway
 import csv
 
 
@@ -6,6 +7,7 @@ class JiraUtils:
 
     def __init__(self, url, username, password):
         self.jira = JIRA(url, basic_auth=(username, password))
+        self.gateway = Gateway()
 
     def get_available_statuses(self):
         issues = self.jira.search_issues('assignee="Ryan Long"')
@@ -22,11 +24,9 @@ class JiraUtils:
     def boards(self):
         return self.jira.boards()
 
-    def new_thing(self, command):
-        with open('./macros.csv') as csv_file:
-            csv_reader = csv.reader(csv_file, delimiter=",")
-            for row in csv_reader:
-                print(getattr(self.jira, row[0])(row[2]).format(row[3]))
+    def run_command(self, command):
+        command = self.gateway.getCommand(command)
+        return getattr(self.jira, command.type_name)(command.instruction)
 
 
 

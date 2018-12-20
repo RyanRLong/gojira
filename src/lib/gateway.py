@@ -42,13 +42,27 @@ class Gateway:
 
     def getCommand(self, name):
         self.cursor.execute('''
-        SELECT commands.name, types.name, commands.instruction, commands.times_used, commands.created, commands.updated
+        SELECT commands.name, commands.type_id, types.name, commands.instruction, commands.times_used, commands.created, commands.updated
         FROM commands
         JOIN types
         on commands.type_id = types.id
         WHERE commands.name = ?
         ''', (name,))
-        return self.cursor.fetchone()
+        return Command(*self.cursor.fetchone())
+
+class Command:
+
+    def __init__(self, name, type_id, type_name, instruction, times_used, created, updated):
+        self.name = name
+        self.type_id = type_id
+        self.type_name = type_name
+        self.instruction = instruction
+        self.times_used = times_used,
+        self.created = created
+        self.updated = updated
+
+    def __str__(self):
+        return "{} {}->{}".format(self.name, self.type_name, self.instruction)
 
 
 
