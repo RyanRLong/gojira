@@ -8,7 +8,9 @@ if __name__ == "__main__":
     jira_password = config['jira']['password']
     jira_url = config['jira']['url']
 
-    print(JiraUtils(jira_url, jira_username, jira_password).get_available_statuses())
+    # print(JiraUtils(jira_url, jira_username, jira_password).get_issues_with_status('review'))
+    # print(JiraUtils(jira_url, jira_username, jira_password).get_projects_assigned_to('Ryan Long'))
+    print(JiraUtils(jira_url, jira_username, jira_password).new_thing('xyz'))
 
 
 
