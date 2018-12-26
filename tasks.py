@@ -24,10 +24,10 @@ def build(c, docs=False):
 @task
 def update(c):
     print("Updating requirements file")
-    c.run("pip list >> requirements.txt")
+    c.run("pip freeze > requirements.txt")
 
 
 @task
 def lint(c):
     print("Creating lint report")
-    c.run("pylint src > lint_results.txt")
+    c.run("pylint gojira > lint_results.txt")

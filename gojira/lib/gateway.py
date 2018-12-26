@@ -1,4 +1,6 @@
 import sqlite3
+from datetime import datetime
+
 
 
 class Gateway:
@@ -66,7 +68,7 @@ class Command:
         self.type_id = type_id
         self.type_name = type_name
         self.instruction = instruction
-        self.times_used = times_used,
+        self.times_used = times_used
         self.created = created
         self.updated = updated
         self.fields = [field.strip() for field in fields.split(',')]

@@ -1,4 +1,5 @@
 from jira import JIRA
+from datetime import datetime
 
 
 class JiraUtils:
@@ -23,19 +24,27 @@ class JiraUtils:
         return self.jira.boards()
 
     def run_command(self, command, args):
+        if args is None:
+            args = []
         command = self.gateway.getCommand(command)
+        print(command.instruction.format(*args))
         result_set = [x for x in (getattr(self.jira, command.type_name)(command.instruction.format(*args)))]
 
         results = {}
+        results['id'] = [x for x in result_set]
         for field in command.fields:
-            results['id'] = [x for x in result_set]
             results[field] = [getattr(x.fields, field) for x in result_set]
-
+            if field in ["updated", "created"]:
+                results[field] = [datetime.strptime(x[:19], '%Y-%m-%dT%H:%M:%S') for x in results[field]]
         return results
 
-    def get_commands_list(self):
+    def get_detailed_commands_list(self):
         return {
             'Command': [x[0] for x in self.gateway.get_list_of_commands()],
             'Query': [x[1] for x in self.gateway.get_list_of_commands()],
             'Return Fields': [x[2] for x in self.gateway.get_list_of_commands()]
         }
+
+    def get_commands_list(self):
+        return [x[0] for x in self.gateway.get_list_of_commands()]
+
