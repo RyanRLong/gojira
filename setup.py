@@ -36,6 +36,6 @@ setup(name='Gojira',
           'urllib3==1.24.2',
           'wheel==0.32.3',
           'prompt-toolkit==2.0.7',
-          'Pygments==2.3.1'
+          'Pygments==2.7.4'
       ],
       zip_safe=False)
