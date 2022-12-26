@@ -34,7 +34,7 @@ setup(name='Gojira',
           'six==1.12.0',
           'tabulate==0.8.2',
           'urllib3==1.24.2',
-          'wheel==0.32.3',
+          'wheel==0.38.1',
           'prompt-toolkit==2.0.7',
           'Pygments==2.3.1'
       ],
